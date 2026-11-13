@@ -1,26 +1,37 @@
 import { useState,useEffect } from "react";
 import get_data from './read_excel';
+import Drill from './Drill';
 
 function App() {
-  const [excel_data, setExcelData] = useState<Record<any,any>[]>([]);
+  const [drill_data, setDrillData] = useState<Record<any,any>[]>([]);
+  const [drill_elements,setDrillElements]=useState<any[]>([]);
 
   useEffect(()=>
   {
     async function async_wrapper()
     {
-      if(excel_data.length==0)
+      if(drill_data.length==0)
       {
-        const excel_data_temp=await get_data("MOCK_DATA.xlsx","data_short");
-        console.log(excel_data_temp);
-        setExcelData(excel_data_temp);
+        const drill_data_temp=await get_data("src/results/Analyzed Drills Stable.xlsx","Results");
+        console.log(drill_data_temp);
+        setDrillData(drill_data_temp);
       }
     }
     async_wrapper();
   },[]);
 
+  useEffect(()=>{
+    if(drill_data.length>0)
+    {
+      const drill_elements=drill_data.map(drill=>(<Drill drill={drill} key={drill.ID}></Drill>));
+      setDrillElements(drill_elements);
+    }
+  },[drill_data])
+
   return (
     <>
-      <h1>OpenAI App Template Vercel</h1>
+      <h1>AI Drill Analyzer</h1>
+      {drill_elements}
     </>
   );
 }
