@@ -46,7 +46,7 @@ def generate_response(row:pd.Series)->dict:
     print(prompt)
 
     response = client.responses.parse(
-        model="gpt-6-luna",
+        model="gpt-6.1-terra",
         input=prompt,
         text_format=DrillAnalysisModel,
     )
