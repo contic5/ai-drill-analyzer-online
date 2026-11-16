@@ -1,0 +1,10 @@
+.big-table th
+{
+    font-size: 24px;
+    margin: 0;
+}
+.big-table td
+{
+    font-size: 36px;
+    margin: 0;
+}
